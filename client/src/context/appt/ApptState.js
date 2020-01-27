@@ -1,6 +1,5 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
-import uuid from 'uuid';
 import ApptContext from './apptContext';
 import apptReducer from './apptReducer';
 import {
@@ -18,26 +17,7 @@ import {
 
 const ApptState = props => {
   const initialState = {
-    appointments: [
-      {
-        _id: '5e2b5074578da424bc5cef59',
-        barber: 'Any',
-        confirmed: false,
-        date: '1/30/31',
-        availability: 'Tuesday at 2pm',
-        phone: '8563325870',
-        key: '5e2b5074578da424bc5cef59'
-      },
-      {
-        _id: '5e2b51ef578da424bc5cef5a',
-        barber: 'Jay',
-        confirmed: false,
-        date: '1/31/31',
-        availability: 'Tuesday at 2pm',
-        phone: '8563325870',
-        key: '5e2b51ef578da424bc5cef5a'
-      }
-    ],
+    appointments: [],
     current: null,
     filtered: null,
     error: null

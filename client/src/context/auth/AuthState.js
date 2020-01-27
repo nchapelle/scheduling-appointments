@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
+import setAuthToken from '../../utils/setAuthToken';
 
 import {
   REGISTER_SUCCESS,
@@ -28,7 +29,16 @@ const AuthState = props => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   //Load USER
-  
+  const loadUser = async () => {
+    setAuthToken(localStorage.token);
+
+    try {
+      const res = await axios.get('/api/auth');
+      dispatch({ type: USER_LOADED, payload: res.data });
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
 
   //Register User
   const register = async formData => {
@@ -45,7 +55,7 @@ const AuthState = props => {
         type: REGISTER_SUCCESS,
         payload: res.data
       });
-      localStorage.setItem('token', res.data.token);
+      loadUser();
     } catch (err) {
       dispatch({
         type: REGISTER_FAIL,
@@ -69,9 +79,7 @@ const AuthState = props => {
         type: LOGIN_SUCCESS,
         payload: res.data
       });
-      localStorage.setItem('token', res.data.token);
-
-      //we need to redirect on the front end here
+      loadUser();
     } catch (err) {
       console.log(err);
       dispatch({
@@ -83,11 +91,10 @@ const AuthState = props => {
   };
 
   //Logout User
-  
+  const logout = () => dispatch({ type: LOG_OUT });
 
   //Clear Errors
-
-
+  const clearErrors = () => dispatch({ type: CLEAR_ERROR });
 
   return (
     <AuthContext.Provider
@@ -97,8 +104,11 @@ const AuthState = props => {
         loading: state.loading,
         user: state.user,
         error: state.error,
+        loadUser,
         register,
-        login
+        login,
+        logout,
+        clearErrors
       }}
     >
       {props.children}

@@ -18,7 +18,7 @@ const ApptForm = () => {
       setAppointment({
         barber: '',
         phone: '',
-        date: '',
+        day: '',
         availability: '',
         confirmed: false
       });
@@ -28,11 +28,11 @@ const ApptForm = () => {
   const [appointment, setAppointment] = useState({
     barber: '',
     phone: '',
-    date: '',
+    day: '',
     availability: '',
     confirmed: false
   });
-  const { barber, phone, date, availability, confirmed } = appointment;
+  const { barber, phone, day, availability, confirmed } = appointment;
 
   const onChange = e =>
     setAppointment({ ...appointment, [e.target.name]: e.target.value });
@@ -64,14 +64,14 @@ const ApptForm = () => {
       <input
         type="text"
         placeholder="Which Date Works Best for you?"
-        name="date"
-        value={date}
+        name="day"
+        value={day}
         onChange={onChange}
       />
 
       <input
         type="text"
-        placeholder="What Time is Good for you?"
+        placeholder="When are you available?"
         name="availability"
         value={availability}
         onChange={onChange}

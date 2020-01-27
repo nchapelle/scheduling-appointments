@@ -8,8 +8,12 @@ const AppointmentSchema = new Schema({
     ref: 'users'
   },
   barber: {
-      type: String,
-      default: 'Any'
+    type: String,
+    default: 'Any'
+  },
+  day: {
+    type: String,
+    required: true
   },
   availability: {
     type: String,

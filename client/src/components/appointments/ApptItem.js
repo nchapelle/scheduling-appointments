@@ -11,7 +11,7 @@ const ApptItem = ({ appointment }) => {
     clearCurrent();
   };
 
-  const { _id, barber, confirmed, date, availability, phone } = appointment;
+  const { _id, barber, confirmed, day, availability, phone } = appointment;
   return (
     <div className="card bg-light" key={_id}>
       <h3 className="text-primary text-left">
@@ -26,7 +26,7 @@ const ApptItem = ({ appointment }) => {
 
       <ul className="list">
         <li>
-          <i className="fas fa-calendar-alt"></i> {date + '   ' + availability}
+          <i className="fas fa-calendar-alt"></i> {day + '   ' + availability}
         </li>
         {phone && (
           <li>

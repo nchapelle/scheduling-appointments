@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PrivateRoute from './components/routing/PrivateRoute';
 import Navbar from './components/layouts/Navbar';
 import Alerts from './components/layouts/Alerts';
 import Scheduling from './components/pages/Scheduling';
@@ -10,7 +11,12 @@ import Register from './components/pages/Register';
 import ApptState from './context/appt/ApptState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
+import setAuthToken from './utils/setAuthToken';
 import './App.css';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   return (
@@ -23,7 +29,7 @@ const App = () => {
               <div className="container">
                 <Alerts />
                 <Switch>
-                  <Route exact path="/" component={Scheduling} />
+                  <PrivateRoute exact path="/" component={Scheduling} />
                   <Route exact path="/About" component={About} />
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/register" component={Register} />

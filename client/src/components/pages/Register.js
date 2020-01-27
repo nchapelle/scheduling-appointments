@@ -53,11 +53,18 @@ const SignUp = props => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
+  const { register, error, clearErrors, isAuthenticated } = authContext;
 
   // once this is true, it will reroute
   useEffect(() => {
-    if (authContext.isAuthenticated) props.history.push('/calendar');
-  });
+    if (isAuthenticated) props.history.push('/');
+
+    if (error === 'Email Has already Been Used') {
+      setAlert(error, 'danger');
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     firstName: '',
@@ -84,7 +91,7 @@ const SignUp = props => {
     } else if (password !== password2) {
       setAlert('Passwords must match.', 'danger');
     } else {
-      authContext.register({
+      register({
         firstName,
         lastName,
         email,
@@ -153,6 +160,7 @@ const SignUp = props => {
                 onChange={onChange}
                 variant="outlined"
                 required
+                minLength="6"
                 fullWidth
                 name="password"
                 label="Password"
@@ -167,6 +175,7 @@ const SignUp = props => {
                 onChange={onChange}
                 variant="outlined"
                 required
+                minLength="6"
                 fullWidth
                 name="password2"
                 label="Confirm Password"
