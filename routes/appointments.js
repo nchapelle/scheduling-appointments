@@ -30,11 +30,11 @@ router.post('/', [auth, [
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const {barber, availabilty, phone  } = req.body;
+    const {barber, availability, phone  } = req.body;
     try {
         const newAppointment = new Appointment({
             barber, 
-            availabilty, 
+            availability, 
             phone, 
             user: req.user.id
         });
@@ -42,7 +42,7 @@ router.post('/', [auth, [
         res.json(appointment)
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({msg : "Server Error"})
+        res.status(500).json({msg : "Server Error 45"})
     }
 });
 
@@ -57,9 +57,23 @@ router.put('/:id', auth, async (req, res) => {
 // @desc        Delete Appointment
 // @access      PRIVATE
 router.delete('/:id', auth, async (req, res) => {
-    res.json({msg : 'Delete Appointment'})
-});
+	try {
+		const appointment = await Appointment.findById(req.params.id);
 
+		if (!appointment) return res.status(404).json({ msg: 'Appointment not found' });
+
+		// Make sure user owns appointment
+		if (appointment.user.toString() !== req.user.id)
+			return res.status(401).json({ msg: 'Not authorized' });
+
+		await Appointment.findByIdAndRemove(req.params.id);
+
+		res.json({ msg: 'Appointment removed' });
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
 
 
 module.exports = router

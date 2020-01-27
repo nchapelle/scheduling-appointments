@@ -19,10 +19,6 @@ const AppointmentSchema = new Schema({
     type: Boolean,
     default: false
   },
-  email: {
-    type: String,
-    required: true
-  },
   phone: {
     type: String,
     required: true
