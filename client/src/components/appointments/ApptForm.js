@@ -84,6 +84,7 @@ const ApptForm = () => {
         onChange={onChange}
       />
       <div>
+        {/* NEED TO FIX FUNCTIONALITY HERE */}
         <input
           type="submit"
           value={current ? 'Update Appointment' : 'Add Appointment'}

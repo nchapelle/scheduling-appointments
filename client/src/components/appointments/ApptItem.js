@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ApptContext from '../../context/appt/apptContext';
 
@@ -30,11 +30,11 @@ const ApptItem = ({ appointment }) => {
         </li>
         {phone && (
           <li>
-            <i class="fas fa-phone"></i> {phone}
+            <i className="fas fa-phone"></i> {phone}
           </li>
         )}
       </ul>
-      <p>
+      <Fragment>
         <div
           className="button btn btn-dark btn-sm"
           onClick={() => setCurrent(appointment)}
@@ -44,7 +44,7 @@ const ApptItem = ({ appointment }) => {
         <div className="button btn btn-danger btn-sm" onClick={onDelete}>
           Delete
         </div>
-      </p>
+      </Fragment>
     </div>
   );
 };

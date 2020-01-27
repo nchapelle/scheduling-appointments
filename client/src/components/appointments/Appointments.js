@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import ApptContext from '../../context/appt/apptContext';
 import ApptItem from './ApptItem';
-import Spinner from '../layout/Spinner';
+import Spinner from '../layouts/Spinner';
 
 const Appointments = () => {
   const apptContext = useContext(ApptContext);
