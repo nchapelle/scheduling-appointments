@@ -103,7 +103,6 @@ const SignUp = props => {
       });
     }
   };
-  const test = { minLength: 6 };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

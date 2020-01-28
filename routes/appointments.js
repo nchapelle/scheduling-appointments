@@ -40,11 +40,10 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { barber, day, availability, phone } = req.body;
+    const { barber, availability, phone } = req.body;
     try {
       const newAppointment = new Appointment({
         barber,
-        day,
         availability,
         phone,
         user: req.user.id
@@ -62,13 +61,12 @@ router.post(
 // @desc        Update Appointment
 // @access      PRIVATE
 router.put('/:id', auth, async (req, res) => {
-  const { barber, phone, day, availability } = req.body;
+  const { barber, phone, availability } = req.body;
 
-  // Build contact object
+  // Build appointment object
   const contactFields = {};
   if (barber) contactFields.barber = barber;
   if (phone) contactFields.phone = phone;
-  if (day) contactFields.type = day;
   if (availability) contactFields.availability = availability;
 
   try {
@@ -76,7 +74,7 @@ router.put('/:id', auth, async (req, res) => {
 
     if (!appointment) return res.status(404).json({ msg: 'Contact not found' });
 
-    // Make sure user owns contact
+    // Make sure user owns appointment
     if (appointment.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not authorized' });
     }

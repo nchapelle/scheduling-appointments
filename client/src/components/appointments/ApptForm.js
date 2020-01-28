@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ApptContext from '../../context/appt/apptContext';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import { KeyboardDateTimePicker } from '@material-ui/pickers';
 
 const ApptForm = () => {
   const apptContext = useContext(ApptContext);
@@ -12,6 +12,8 @@ const ApptForm = () => {
     current
   } = apptContext;
 
+  const [selectedDate, handleDateChange] = useState(new Date());
+
   useEffect(() => {
     if (current !== null) {
       setAppointment(current);
@@ -19,7 +21,6 @@ const ApptForm = () => {
       setAppointment({
         barber: '',
         phone: '',
-        day: '',
         availability: '',
         confirmed: false
       });
@@ -29,20 +30,17 @@ const ApptForm = () => {
   const [appointment, setAppointment] = useState({
     barber: '',
     phone: '',
-    day: '',
     availability: '',
     confirmed: false
   });
 
-  const [selectedDate, handleDateChange] = useState();
-
-  const { barber, phone, day, availability, confirmed } = appointment;
+  const { barber, phone, availability, confirmed } = appointment;
 
   const onChange = e =>
     setAppointment({ ...appointment, [e.target.name]: e.target.value });
 
-  const setDate = () => {
-    setAppointment({ ...appointment, day: selectedDate });
+  const setDate = date => {
+    setAppointment({ ...appointment, availability: date });
   };
 
   const onSubmit = e => {
@@ -59,7 +57,7 @@ const ApptForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2 className="text-primary">
+      <h2 className="text-primary" style={{ paddingTop: '18px' }}>
         {current ? 'Edit Appointment' : 'Add Appointment'}
       </h2>
 
@@ -70,26 +68,19 @@ const ApptForm = () => {
         value={barber}
         onChange={onChange}
       />
+      <input type="hidden" name="availability" value={availability} />
+      <input type="hidden" name="confirmed" value={confirmed} />
 
-      <KeyboardDatePicker
-        autoOk
-        variant="inline"
-        inputVariant="outlined"
-        label="With keyboard"
-        format="MM/dd/yyyy"
+      <KeyboardDateTimePicker
         value={selectedDate}
-        InputAdornmentProps={{ position: 'start' }}
+        label="What time is best for you?"
+        showTodayButton
+        disablePast
+        format="yyyy/MM/dd HH:mm"
         onChange={async date => {
-          await handleDateChange(date);
-          setDate();
+          handleDateChange(date);
+          setDate(date);
         }}
-      />
-      <input
-        type="text"
-        placeholder="When are you available?"
-        name="availability"
-        value={availability}
-        onChange={onChange}
       />
       <input
         type="text"
@@ -101,7 +92,6 @@ const ApptForm = () => {
         maxLength="10"
       />
       <div>
-        {/* NEED TO FIX FUNCTIONALITY HERE */}
         <input
           type="submit"
           value={current ? 'Update Appointment' : 'Add Appointment'}

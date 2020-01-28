@@ -11,10 +11,6 @@ const AppointmentSchema = new Schema({
     type: String,
     default: 'Any'
   },
-  day: {
-    type: String,
-    required: true
-  },
   availability: {
     type: String,
     required: true
