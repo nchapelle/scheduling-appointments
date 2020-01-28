@@ -191,8 +191,7 @@ const SignUp = props => {
                 // I think this needs to be updated I'm not capturing the checkbox value
                 name="subscribed"
                 id="subscribed"
-                value={subcribed}
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                control={<Checkbox value={subcribed} color="primary" />}
                 label="Allow Communication via Email"
               />
             </Grid>

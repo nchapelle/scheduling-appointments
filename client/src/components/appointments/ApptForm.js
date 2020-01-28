@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ApptContext from '../../context/appt/apptContext';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 
 const ApptForm = () => {
   const apptContext = useContext(ApptContext);
@@ -32,10 +33,17 @@ const ApptForm = () => {
     availability: '',
     confirmed: false
   });
+
+  const [selectedDate, handleDateChange] = useState();
+
   const { barber, phone, day, availability, confirmed } = appointment;
 
   const onChange = e =>
     setAppointment({ ...appointment, [e.target.name]: e.target.value });
+
+  const setDate = () => {
+    setAppointment({ ...appointment, day: selectedDate });
+  };
 
   const onSubmit = e => {
     e.preventDefault();
@@ -54,6 +62,7 @@ const ApptForm = () => {
       <h2 className="text-primary">
         {current ? 'Edit Appointment' : 'Add Appointment'}
       </h2>
+
       <input
         type="text"
         placeholder="Which Barber do you prefer?"
@@ -61,14 +70,20 @@ const ApptForm = () => {
         value={barber}
         onChange={onChange}
       />
-      <input
-        type="text"
-        placeholder="Which Date Works Best for you?"
-        name="day"
-        value={day}
-        onChange={onChange}
-      />
 
+      <KeyboardDatePicker
+        autoOk
+        variant="inline"
+        inputVariant="outlined"
+        label="With keyboard"
+        format="MM/dd/yyyy"
+        value={selectedDate}
+        InputAdornmentProps={{ position: 'start' }}
+        onChange={async date => {
+          await handleDateChange(date);
+          setDate();
+        }}
+      />
       <input
         type="text"
         placeholder="When are you available?"
