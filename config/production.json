@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb://localhost/user-auth",
+  "mongoURI": "mongodb+srv://nchapelle:Nrc51489!@cpk-nolan-ozzsb.mongodb.net/test?retryWrites=true&w=majority",
   "jwtSecret": "secret"
 }
