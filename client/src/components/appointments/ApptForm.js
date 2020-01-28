@@ -82,6 +82,8 @@ const ApptForm = () => {
         name="phone"
         value={phone}
         onChange={onChange}
+        minLength="10"
+        maxLength="10"
       />
       <div>
         {/* NEED TO FIX FUNCTIONALITY HERE */}

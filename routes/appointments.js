@@ -62,9 +62,37 @@ router.post(
 // @desc        Update Appointment
 // @access      PRIVATE
 router.put('/:id', auth, async (req, res) => {
-  res.json({ msg: 'Change Appointment' });
-});
+  const { barber, phone, day, availability } = req.body;
 
+  // Build contact object
+  const contactFields = {};
+  if (barber) contactFields.barber = barber;
+  if (phone) contactFields.phone = phone;
+  if (day) contactFields.type = day;
+  if (availability) contactFields.availability = availability;
+
+  try {
+    let appointment = await Appointment.findById(req.params.id);
+
+    if (!appointment) return res.status(404).json({ msg: 'Contact not found' });
+
+    // Make sure user owns contact
+    if (appointment.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    appointment = await Appointment.findByIdAndUpdate(
+      req.params.id,
+      { $set: contactFields },
+      { new: true }
+    );
+
+    res.json(appointment);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 // @route       DELETE api/appointments/:id
 // @desc        Delete Appointment
 // @access      PRIVATE

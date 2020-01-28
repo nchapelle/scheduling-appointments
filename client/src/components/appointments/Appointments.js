@@ -13,7 +13,7 @@ const Appointments = () => {
     getAppointments();
     //eslint-disable-next-line
   }, []);
-  if (appointments.length === 0) {
+  if (!appointments && appointments.length === null && !loading) {
     return <h4>Use the form above to schedule an appointment.</h4>;
   }
 

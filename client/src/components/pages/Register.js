@@ -88,6 +88,8 @@ const SignUp = props => {
       password === ''
     ) {
       setAlert('All fields are required.', 'danger');
+    } else if (password.length < 6) {
+      setAlert('Password must be longer than 6 characters.', 'danger');
     } else if (password !== password2) {
       setAlert('Passwords must match.', 'danger');
     } else {
@@ -101,7 +103,7 @@ const SignUp = props => {
       });
     }
   };
-
+  const test = { minLength: 6 };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -160,7 +162,6 @@ const SignUp = props => {
                 onChange={onChange}
                 variant="outlined"
                 required
-                minLength="6"
                 fullWidth
                 name="password"
                 label="Password"
@@ -175,7 +176,6 @@ const SignUp = props => {
                 onChange={onChange}
                 variant="outlined"
                 required
-                minLength="6"
                 fullWidth
                 name="password2"
                 label="Confirm Password"
