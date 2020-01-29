@@ -19,13 +19,13 @@ function Main() {
       </section>
       <section data-index="1" className="Designs">
         <div className="img-container">
-          <h2>Designs</h2>
           <img
             alt="Designs"
             src={Designs}
             onClick={() => (window.location.href = '/scheduling')}
           />
         </div>
+        <h2>Designs</h2>
       </section>
       <section data-index="2" className="Kids">
         <div className="img-container">
@@ -39,13 +39,13 @@ function Main() {
       </section>
       <section data-index="2" className="Razor">
         <div className="img-container">
-          <h2>Razor</h2>
           <img
             alt="Razor"
             src={Razor}
             onClick={() => (window.location.href = '/scheduling')}
           />
         </div>
+        <h2>Razor</h2>
       </section>
     </main>
   );
