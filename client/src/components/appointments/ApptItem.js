@@ -18,7 +18,9 @@ const ApptItem = ({ appointment }) => {
         Barber: {barber}
         <span
           style={{ float: 'right' }}
-          className={'badge' + (confirmed === true ? '-success' : '-danger')}
+          className={
+            'badge ' + 'badge' + (confirmed === true ? '-success' : '-danger')
+          }
         >
           {confirmed === true ? 'Confirmed' : 'Awaiting Approval'}
         </span>
