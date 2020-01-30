@@ -19,6 +19,12 @@ export const Navbar = ({ title, icon }) => {
     <Fragment>
       <li>Hello {user && user.firstName}</li>
       <li>
+        <a href="/scheduling">
+          <i className="fas fa-calendar-alt"></i>
+          <span className="hide-sm"> Scheduling</span>
+        </a>
+      </li>
+      <li>
         <a onClick={onLogout} href="#!">
           <i className="fas fa-door-open"></i>
           <span className="hide-sm">Logout</span>

@@ -7,6 +7,7 @@
   --light-color: transparent;
   --danger-color: #dc3545;
   --success-color: #28a745;
+  --gradient-color: linear-gradient(to right top, #11998e, #38ef7d);
 }
 
 #root {
@@ -77,7 +78,7 @@ a {
 }
 
 a:hover {
-  color: linear-gradient(to right top, #11998e, #38ef7d);
+  color: #11998e;
 }
 
 ul {
@@ -418,7 +419,7 @@ table th {
 }
 
 .navbar a:hover {
-  color: var(--light-color);
+  color: #38ef7d;
 }
 
 .navbar .welcome span {
