@@ -398,7 +398,7 @@ table th {
 
 /* Navbar */
 .navbar {
-  position: fixed;
+  position: sticky;
   display: flex;
   justify-content: space-between;
   align-items: center;
